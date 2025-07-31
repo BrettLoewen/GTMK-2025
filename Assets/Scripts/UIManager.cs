@@ -4,6 +4,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    public Transform buildingButtonParent;
+    public BuildingButton buildingButtonPrefab;
 
     void Awake()
     {
@@ -21,7 +23,16 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        foreach (Transform t in buildingButtonParent)
+        {
+            Destroy(t.gameObject);
+        }
+
+        foreach (BuildingData building in DataManager.Instance.buildingData)
+        {
+            BuildingButton button = Instantiate(buildingButtonPrefab, buildingButtonParent);
+            button.Setup(building);
+        }
     }
 
     // Update is called once per frame

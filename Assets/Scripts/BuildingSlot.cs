@@ -29,6 +29,7 @@ public class BuildingSlot : MonoBehaviour
     private void OnMouseDown()
     {
         EnableAreas(false);
+        BuildingManager.Instance.ClickedBuildingSlot(this);
     }
 
     void EnableAreas(bool active)

@@ -1,0 +1,48 @@
+using UnityEngine;
+
+public class BuildingSlot : MonoBehaviour
+{
+    public GameObject[] trackAreas;
+    private bool[] enabledSlots;
+
+    private void Start()
+    {
+        enabledSlots = new bool[trackAreas.Length];
+        for (int i = 0; i < trackAreas.Length; i++)
+        {
+            enabledSlots[i] = trackAreas[i].activeSelf;
+        }
+
+        EnableAreas(false);
+    }
+
+    private void OnMouseEnter()
+    {
+        EnableAreas(true);
+    }
+
+    private void OnMouseExit()
+    {
+        EnableAreas(false);
+    }
+
+    private void OnMouseDown()
+    {
+        EnableAreas(false);
+    }
+
+    void EnableAreas(bool active)
+    {
+        for (int i = 0; i < trackAreas.Length; i++)
+        {
+            if (enabledSlots[i])
+            {
+                trackAreas[i].SetActive(active);
+            }
+            else
+            {
+                trackAreas[i].SetActive(false);
+            }
+        }
+    }
+}

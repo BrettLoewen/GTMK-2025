@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -6,6 +7,11 @@ public class UIManager : MonoBehaviour
 
     public Transform buildingButtonParent;
     public BuildingButton buildingButtonPrefab;
+
+    public GameObject infoPanel;
+    public TextMeshProUGUI infoText;
+    private ISelectable selectedInfoObject;
+    private ISelectable hoveredInfoObject;
 
     void Awake()
     {
@@ -33,11 +39,47 @@ public class UIManager : MonoBehaviour
             BuildingButton button = Instantiate(buildingButtonPrefab, buildingButtonParent);
             button.Setup(building);
         }
+
+        infoPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (selectedInfoObject as Object != null)
+        {
+            infoPanel.SetActive(true);
+
+            infoText.text = selectedInfoObject.GetInfoText();
+        }
+        else if (hoveredInfoObject as Object != null)
+        {
+            infoPanel.SetActive(true);
+
+            infoText.text = hoveredInfoObject.GetInfoText();
+        }
+        else
+        {
+            infoPanel.SetActive(false);
+        }
+    }
+
+    public void SetSelectedInfoObject(ISelectable newInfoObject)
+    {
+        selectedInfoObject = newInfoObject;
+    }
+
+    public void SetHoveredInfoObject(ISelectable newInfoObject)
+    {
+        hoveredInfoObject = newInfoObject;
+    }
+
+    public void OnCancelInfoSelection()
+    {
+        selectedInfoObject = null;
+        hoveredInfoObject = null;
+
+        // In the case where the selected object was the building currently being placed, also stop the building placement
+        BuildingManager.Instance.StopBuildingPlacement();
     }
 }

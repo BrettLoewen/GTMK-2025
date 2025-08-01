@@ -1,8 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildingButton : MonoBehaviour
+public class BuildingButton : MonoBehaviour, ISelectable, IPointerEnterHandler, IPointerExitHandler
 {
     public Image image;
     public TextMeshProUGUI nameText;
@@ -19,6 +20,22 @@ public class BuildingButton : MonoBehaviour
 
     public void OnClick()
     {
-        BuildingManager.Instance.ClickedBuildingButton(data);
+        BuildingManager.Instance.StartBuildingPlacement(data);
+        UIManager.Instance.SetSelectedInfoObject(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UIManager.Instance.SetHoveredInfoObject(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.Instance.SetHoveredInfoObject(null);
+    }
+
+    public string GetInfoText()
+    {
+        return data.GenerateInfoText();
     }
 }

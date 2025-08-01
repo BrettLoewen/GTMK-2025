@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class Shopper : MonoBehaviour
+public class Shopper : MonoBehaviour, ISelectable
 {
     public float minDistanceToWaypoint = 0.1f;
     public float moveSpeed = 1f;
@@ -74,6 +74,21 @@ public class Shopper : MonoBehaviour
         }
     }
 
+    private void OnMouseEnter()
+    {
+        UIManager.Instance.SetHoveredInfoObject(this);
+    }
+
+    private void OnMouseExit()
+    {
+        UIManager.Instance.SetHoveredInfoObject(null);
+    }
+
+    private void OnMouseDown()
+    {
+        UIManager.Instance.SetSelectedInfoObject(this);
+    }
+
     public void Setup(Transform[] trackPath)
     {
         waypoints = new LinkedList<Transform>();
@@ -81,5 +96,10 @@ public class Shopper : MonoBehaviour
         {
             waypoints.AddLast(trackWaypoint);
         }
+    }
+
+    public string GetInfoText()
+    {
+        return "Shopper";
     }
 }

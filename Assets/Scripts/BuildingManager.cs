@@ -42,17 +42,20 @@ public class BuildingManager : MonoBehaviour
         
     }
 
-    public void ClickedBuildingButton(BuildingData buildingData)
+    public void StartBuildingPlacement(BuildingData buildingData)
     {
         EnableBuildingSlots(true);
         currentBuildingData = buildingData;
     }
 
+    public void StopBuildingPlacement()
+    {
+        EnableBuildingSlots(false);
+        currentBuildingData = null;
+    }
+
     public void ClickedBuildingSlot(BuildingSlot slot)
     {
-        // Disable all slots
-        EnableBuildingSlots(false);
-
         if (currentBuildingData == null)
         {
             return;
@@ -82,7 +85,9 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        currentBuildingData = null;
+        UIManager.Instance.SetSelectedInfoObject(null);
+
+        StopBuildingPlacement();
     }
 
     private void EnableBuildingSlots(bool active)

@@ -18,5 +18,6 @@ public class Building : MonoBehaviour
         this.data = data;
 
         spriteRenderer.color = data.color;
+        name = data.buildingName;
     }
 }

@@ -13,6 +13,8 @@ public class BuildingManager : MonoBehaviour
 
     private BuildingData currentBuildingData;
 
+    private Dictionary<Transform, Building> entryPointsToBuildings = new Dictionary<Transform, Building>();
+
     void Awake()
     {
         //If Instance does not exist yet, this instance should be the Instance
@@ -65,6 +67,21 @@ public class BuildingManager : MonoBehaviour
         int index = slots.IndexOf(slot);
         buildings[index] = building;
 
+        // Disable all the entry points that are not over the track.
+        // Also use a dictionary to easily match the entry point transform to the building
+        for (int i = 0; i < building.entryPoints.Length; i++)
+        {
+            if (slots[index].enabledSlots[i])
+            {
+                building.entryPoints[i].gameObject.SetActive(true);
+                entryPointsToBuildings.Add(building.entryPoints[i], building);
+            }
+            else
+            {
+                building.entryPoints[i].gameObject.SetActive(false);
+            }
+        }
+
         currentBuildingData = null;
     }
 
@@ -81,6 +98,19 @@ public class BuildingManager : MonoBehaviour
             {
                 slots[i].gameObject.SetActive(false);
             }
+        }
+    }
+
+    // Given the transform for an entry point, return the building reference (if it exists) that is connected to that entry point
+    public Building GetBuildingByEntryPoint(Transform entryPoint)
+    {
+        if (entryPointsToBuildings.ContainsKey(entryPoint))
+        {
+            return entryPointsToBuildings[entryPoint];
+        }
+        else 
+        { 
+            return null; 
         }
     }
 }

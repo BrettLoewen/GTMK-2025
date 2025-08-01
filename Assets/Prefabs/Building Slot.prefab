@@ -414,9 +414,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackAreas:
   - {fileID: 1946049019085963446}
-  - {fileID: 2920810733119188358}
   - {fileID: 1714241118909304131}
+  - {fileID: 2920810733119188358}
   - {fileID: 7383270108538334062}
+  enabledSlots: 
 --- !u!1 &7383270108538334062
 GameObject:
   m_ObjectHideFlags: 0

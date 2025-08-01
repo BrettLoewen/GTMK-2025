@@ -3,7 +3,7 @@ using UnityEngine;
 public class BuildingSlot : MonoBehaviour
 {
     public GameObject[] trackAreas;
-    private bool[] enabledSlots;
+    public bool[] enabledSlots;
 
     private void Start()
     {

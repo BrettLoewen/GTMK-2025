@@ -8,7 +8,7 @@ public class ShopperManager : MonoBehaviour
     GameObject shopper;
     int currentWaypoint = 0;
 
-    TrackManager trackManager => TrackManager.Instance;
+    public Transform[] trackWaypoints;
 
     void Awake()
     {
@@ -26,7 +26,7 @@ public class ShopperManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        shopper = Instantiate(shopperPrefab, trackManager.waypoints[currentWaypoint]);
+        shopper = Instantiate(shopperPrefab, trackWaypoints[currentWaypoint]);
     }
 
     // Update is called once per frame

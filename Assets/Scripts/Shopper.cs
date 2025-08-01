@@ -6,7 +6,7 @@ public class Shopper : MonoBehaviour
     public float moveSpeed = 1f;
     int currentWaypoint = 0;
 
-    TrackManager trackManager => TrackManager.Instance;
+    ShopperManager shopperManager => ShopperManager.Instance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,18 +17,18 @@ public class Shopper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, trackManager.waypoints[currentWaypoint].position) <= minDistanceToWaypoint)
+        if (Vector3.Distance(transform.position, shopperManager.trackWaypoints[currentWaypoint].position) <= minDistanceToWaypoint)
         {
-            transform.position = trackManager.waypoints[currentWaypoint].position;
+            transform.position = shopperManager.trackWaypoints[currentWaypoint].position;
             currentWaypoint++;
-            if (currentWaypoint >= trackManager.waypoints.Length)
+            if (currentWaypoint >= shopperManager.trackWaypoints.Length)
             {
                 currentWaypoint = 0;
             }
         }
         else
         {
-            transform.Translate((trackManager.waypoints[currentWaypoint].position - transform.position).normalized * moveSpeed * Time.deltaTime);
+            transform.Translate((shopperManager.trackWaypoints[currentWaypoint].position - transform.position).normalized * moveSpeed * Time.deltaTime);
         }
     }
 }

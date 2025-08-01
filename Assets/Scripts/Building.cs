@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
+    public Transform[] entryPoints;
+
     private SpriteRenderer spriteRenderer;
     private BuildingData data;
+
 
     private void Awake()
     {

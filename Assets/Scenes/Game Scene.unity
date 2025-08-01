@@ -903,12 +903,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799324956}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2869, y: 0.35733905, z: -0.043719713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1775856624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &830156978 stripped
 MonoBehaviour:
@@ -1885,6 +1885,7 @@ Transform:
   m_Children:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 799324959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1791310778
@@ -1968,8 +1969,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopperPrefab: {fileID: 8123870234751893845, guid: 10423bd6f36e1e8489315fb746b80c58, type: 3}
-  minDistanceToWaypoint: 0.01
-  moveSpeed: 2
 --- !u!4 &1805187853
 Transform:
   m_ObjectHideFlags: 0
@@ -2533,4 +2532,3 @@ SceneRoots:
   - {fileID: 1386396655}
   - {fileID: 1947898561}
   - {fileID: 1822500823}
-  - {fileID: 799324959}

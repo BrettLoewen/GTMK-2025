@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8158020053169203316}
   - component: {fileID: 8488651286579598235}
+  - component: {fileID: -5751272649435463348}
   m_Layer: 0
   m_Name: Shopper
   m_TagString: Untagged
@@ -87,3 +88,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5751272649435463348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123870234751893845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af09df0c6a29f01408d7d2b0789b3f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistanceToWaypoint: 0.01
+  moveSpeed: 2

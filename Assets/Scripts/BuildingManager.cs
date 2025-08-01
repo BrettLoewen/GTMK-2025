@@ -51,7 +51,7 @@ public class BuildingManager : MonoBehaviour
         // Disable all slots
         EnableBuildingSlots(false);
 
-        if (currentBuildingData != null)
+        if (currentBuildingData == null)
         {
             return;
         }

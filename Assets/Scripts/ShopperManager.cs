@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopperManager : MonoBehaviour
@@ -39,7 +41,14 @@ public class ShopperManager : MonoBehaviour
         {
             shopper = Instantiate(shopperPrefab, transform);
             shopper.transform.position = trackWaypoints[0].position;
-            shopper.Setup(trackWaypoints);
+
+            Dictionary<Need, int> needs = new Dictionary<Need, int>();
+            foreach (Need needType in Enum.GetValues(typeof(Need)))
+            {
+                needs.Add(needType, 1);
+            }
+
+            shopper.Setup(trackWaypoints, needs);
 
             timeUntilNextSpawn = timeBetweenSpawns;
         }

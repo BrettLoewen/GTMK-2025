@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour, ISelectable
@@ -39,5 +40,36 @@ public class Building : MonoBehaviour, ISelectable
     public string GetInfoText()
     {
         return data.GenerateInfoText();
+    }
+
+    public bool CanMeetNeed(Dictionary<Need, int> needs)
+    {
+        foreach (NeedLevel needLevel in data.needsMet)
+        {
+            if (needs.ContainsKey(needLevel.need) && needLevel.level > 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void MeetNeeds(Dictionary<Need, int> needs)
+    {
+        foreach (NeedLevel needLevel in data.needsMet)
+        {
+            // If the shopper has this need, reduce the need by the level this building provides.
+            // If this reduces the need to 0, ensure it doesn't become negative.
+            if (needs.ContainsKey(needLevel.need))
+            {
+                needs[needLevel.need] -= needLevel.level;
+
+                if (needs[needLevel.need] <= 0)
+                {
+                    needs[needLevel.need] = 0;
+                }
+            }
+        }
     }
 }

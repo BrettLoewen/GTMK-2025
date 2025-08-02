@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03e0e243efedc8d4e9f8e23d3847b76c, type: 3}
-  m_Name: Blue
+  m_Name: Gym
   m_EditorClassIdentifier: 
-  buildingName: Blue
-  cost: 40
-  color: {r: 0, g: 0.044486396, b: 0.6226415, a: 1}
+  buildingName: Gym
+  cost: 1000
+  color: {r: 0.62352943, g: 0, b: 0.018314738, a: 1}
+  needsMet:
+  - need: 2
+    level: 2
+  - need: 0
+    level: -1

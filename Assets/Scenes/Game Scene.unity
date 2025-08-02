@@ -547,8 +547,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData:
-  - {fileID: 11400000, guid: 1551ae873149db74198c8685d0a70c78, type: 2}
+  - {fileID: 11400000, guid: 97872f1e67456d14a81cde09472fa372, type: 2}
   - {fileID: 11400000, guid: 54a4ca60e4f772740b0a83647a3b5384, type: 2}
+  - {fileID: 11400000, guid: e4d41fd12c85c8346a160dc5191741aa, type: 2}
+  - {fileID: 11400000, guid: 1551ae873149db74198c8685d0a70c78, type: 2}
+  - {fileID: 11400000, guid: 041cf53538b5cd944aae7468cf147979, type: 2}
 --- !u!4 &432717493
 Transform:
   m_ObjectHideFlags: 0

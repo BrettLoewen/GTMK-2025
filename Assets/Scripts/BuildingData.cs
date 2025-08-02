@@ -14,7 +14,7 @@ public class BuildingData : ScriptableObject
     {
         string infoText = "";
         infoText += buildingName + "\n";
-        infoText += "Cost: " + cost + "\n";
+        infoText += "Cost: $" + cost + "\n";
         infoText += "Meets:\n";
         foreach (NeedLevel needLevel in needsMet)
         {

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Shopper : MonoBehaviour, ISelectable
@@ -11,7 +10,11 @@ public class Shopper : MonoBehaviour, ISelectable
 
     private List<Building> visitedBuildings = new List<Building>();
 
-    ShopperManager shopperManager => ShopperManager.Instance;
+    private Dictionary<Need, int> needs = new Dictionary<Need, int>();
+
+    public Color[] colors;
+
+    //ShopperManager shopperManager => ShopperManager.Instance;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +24,53 @@ public class Shopper : MonoBehaviour, ISelectable
 
     // Update is called once per frame
     void Update()
+    {
+        Move();
+
+        SetColor();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Transform other = collision.transform;
+        if (other != null)
+        {
+            // If this is an entry point, get the relevant building
+            Building building = BuildingManager.Instance.GetBuildingByEntryPoint(other);
+
+            // If the building exists, you haven't shopped there yet, and it is helpful to you, then enter the building
+            if (building != null && !visitedBuildings.Contains(building) && building.CanMeetNeed(needs))
+            {
+                // Update the path so you enter and exit the building
+                waypoints.AddFirst(other);
+                waypoints.AddFirst(building.transform);
+                waypoints.AddFirst(other);
+
+                // Store the building so you don't enter the building again
+                visitedBuildings.Add(building);
+
+                // Update your needs based on the building
+                building.MeetNeeds(needs);
+            }
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        UIManager.Instance.SetHoveredInfoObject(this);
+    }
+
+    private void OnMouseExit()
+    {
+        UIManager.Instance.SetHoveredInfoObject(null);
+    }
+
+    private void OnMouseDown()
+    {
+        UIManager.Instance.SetSelectedInfoObject(this);
+    }
+
+    private void Move()
     {
         // Don't move if there aren't any waypoints
         if (waypoints.Count == 0)
@@ -52,54 +102,41 @@ public class Shopper : MonoBehaviour, ISelectable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Transform other = collision.transform;
-        if (other != null)
-        {
-            // If this is an entry point, get the relevant building
-            Building building = BuildingManager.Instance.GetBuildingByEntryPoint(other);
-
-            // If the building exists and you haven't shopped there yet, then enter the building
-            if (building != null && !visitedBuildings.Contains(building))
-            {
-                // Update the path so you enter and exit the building
-                waypoints.AddFirst(other);
-                waypoints.AddFirst(building.transform);
-                waypoints.AddFirst(other);
-
-                // Store the building so you don't enter the building again
-                visitedBuildings.Add(building);
-            }
-        }
-    }
-
-    private void OnMouseEnter()
-    {
-        UIManager.Instance.SetHoveredInfoObject(this);
-    }
-
-    private void OnMouseExit()
-    {
-        UIManager.Instance.SetHoveredInfoObject(null);
-    }
-
-    private void OnMouseDown()
-    {
-        UIManager.Instance.SetSelectedInfoObject(this);
-    }
-
-    public void Setup(Transform[] trackPath)
+    public void Setup(Transform[] trackPath, Dictionary<Need, int> needs)
     {
         waypoints = new LinkedList<Transform>();
         foreach (Transform trackWaypoint in trackPath)
         {
             waypoints.AddLast(trackWaypoint);
         }
+
+        this.needs = needs;
+
+        SetColor();
+    }
+
+    // Change the shopper's color to indicate how many needs they have
+    private void SetColor()
+    {
+        int needDegree = 0;
+        foreach (KeyValuePair<Need, int> need in needs)
+        {
+            needDegree += need.Value;
+        }
+        if (needDegree >= colors.Length)
+        {
+            needDegree = colors.Length - 1;
+        }
+        GetComponent<SpriteRenderer>().color = colors[needDegree];
     }
 
     public string GetInfoText()
     {
-        return "Shopper";
+        string infoText = "Shopper\nMeets:\n";
+        foreach (KeyValuePair<Need, int> needLevel in needs)
+        {
+            infoText += "- " + needLevel.Value.ToString() + " " + needLevel.Key.ToString() + "\n";
+        }
+        return infoText;
     }
 }

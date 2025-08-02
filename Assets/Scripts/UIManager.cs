@@ -1,24 +1,35 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    public Transform buildingButtonParent;
-    public BuildingButton buildingButtonPrefab;
-
+    [Header("Info Sidebar")]
     public GameObject infoPanel;
     public TextMeshProUGUI infoText;
     private ISelectable selectedInfoObject;
     private ISelectable hoveredInfoObject;
     public GameObject sellButton;
 
+    [Header("Menu Sidebar")]
+    public Transform buildingButtonParent;
+    public BuildingButton buildingButtonPrefab;
+
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI dayText;
     public Slider moneyGoalSlider;
     public TextMeshProUGUI moneyGoalText;
+
+    [Header("Popup")]
+    public GameObject popup;
+    public GameObject gameEndScreen;
+    public TextMeshProUGUI gameEndHeader;
+    public TextMeshProUGUI gameEndBody;
+
+    private GameManager gameManager => GameManager.Instance;
 
     void Awake()
     {
@@ -48,6 +59,9 @@ public class UIManager : MonoBehaviour
         }
 
         infoPanel.SetActive(false);
+
+        popup.SetActive(false);
+        gameEndScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -74,12 +88,12 @@ public class UIManager : MonoBehaviour
             infoPanel.SetActive(false);
         }
 
-        moneyText.text = $"${GameManager.Instance.currentMoney}";
-        dayText.text = $"Day {GameManager.Instance.currentDay} / {GameManager.Instance.totalDays}";
-        moneyGoalSlider.maxValue = GameManager.Instance.moneyGoal;
+        moneyText.text = $"${gameManager.currentMoney}";
+        dayText.text = $"Day {gameManager.currentDay} / {gameManager.totalDays}";
+        moneyGoalSlider.maxValue = gameManager.moneyGoal;
         moneyGoalSlider.minValue = 0;
-        moneyGoalSlider.value = GameManager.Instance.earnedMoney;
-        moneyGoalText.text = $"${GameManager.Instance.earnedMoney} / ${GameManager.Instance.moneyGoal}";
+        moneyGoalSlider.value = gameManager.earnedMoney;
+        moneyGoalText.text = $"${gameManager.earnedMoney} / ${gameManager.moneyGoal}";
     }
 
     public void SetSelectedInfoObject(ISelectable newInfoObject)
@@ -123,18 +137,31 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.currentMoney += building.data.cost / 2;
+        gameManager.currentMoney += building.data.cost / 2;
         
         BuildingManager.Instance.RemoveBuilding(building);
     }
 
     public void OnPlayClicked()
     {
-        GameManager.Instance.StartDay();
+        gameManager.StartDay();
     }
 
     public void OnPauseClicked()
     {
 
+    }
+
+    public void OnPlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ShowGameEndScreen()
+    {
+        popup.SetActive(true);
+        gameEndScreen.SetActive(true);
+        gameEndHeader.text = gameManager.earnedMoney >= gameManager.moneyGoal ? "YOU WIN" : "YOU LOST";
+        gameEndBody.text = $"Cash Earned: ${gameManager.earnedMoney}\nSatisfied Shoppers: {gameManager.satisfiedShoppers}\nDissatisfied Shoppers: {gameManager.dissatisfiedShoppers}";
     }
 }

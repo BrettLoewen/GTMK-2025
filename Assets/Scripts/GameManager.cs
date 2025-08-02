@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public int earnedMoney = 0;
     public int moneyGoal;
 
+    public int satisfiedShoppers = 0;
+    public int dissatisfiedShoppers = 0;
+
     void Awake()
     {
         //If Instance does not exist yet, this instance should be the Instance
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (currentDay + 1 > totalDays)
         {
-            Debug.Log("GAME OVER");
+            UIManager.Instance.ShowGameEndScreen();
         }
         else
         {

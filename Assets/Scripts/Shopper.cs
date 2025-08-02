@@ -91,7 +91,24 @@ public class Shopper : MonoBehaviour, ISelectable
                 waypoints.RemoveFirst();
                 if (waypoints.Count == 0)
                 {
+                    // If the shopper's needs were all met, increase the satisfiedShoppers tracker.
+                    // If they were not all met, increase the dissatisfiedShoppers tracker.
+                    int remainingNeedLevel = 0;
+                    foreach (KeyValuePair<Need, int> needLevel in needs)
+                    {
+                        remainingNeedLevel += needLevel.Value;
+                    }
+                    if (remainingNeedLevel > 0)
+                    {
+                        GameManager.Instance.dissatisfiedShoppers++;
+                    }
+                    else
+                    {
+                        GameManager.Instance.satisfiedShoppers++;
+                    }
+
                     ShopperManager.Instance.ShopperReturned();
+
                     Destroy(gameObject);
                 }
             }

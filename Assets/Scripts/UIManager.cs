@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI infoText;
     private ISelectable selectedInfoObject;
     private ISelectable hoveredInfoObject;
+    public GameObject sellButton;
 
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI dayText;
+    public Slider moneyGoalSlider;
+    public TextMeshProUGUI moneyGoalText;
 
     void Awake()
     {
@@ -54,21 +58,37 @@ public class UIManager : MonoBehaviour
             infoPanel.SetActive(true);
 
             infoText.text = selectedInfoObject.GetInfoText();
+
+            sellButton.SetActive(selectedInfoObject as Building != null);
         }
         else if (hoveredInfoObject as Object != null)
         {
             infoPanel.SetActive(true);
 
             infoText.text = hoveredInfoObject.GetInfoText();
+
+            sellButton.SetActive(hoveredInfoObject as Building != null);
         }
         else
         {
             infoPanel.SetActive(false);
         }
+
+        moneyText.text = $"${GameManager.Instance.currentMoney}";
+        dayText.text = $"Day {GameManager.Instance.currentDay} / {GameManager.Instance.totalDays}";
+        moneyGoalSlider.maxValue = GameManager.Instance.moneyGoal;
+        moneyGoalSlider.minValue = 0;
+        moneyGoalSlider.value = GameManager.Instance.earnedMoney;
+        moneyGoalText.text = $"${GameManager.Instance.earnedMoney} / ${GameManager.Instance.moneyGoal}";
     }
 
     public void SetSelectedInfoObject(ISelectable newInfoObject)
     {
+        if (selectedInfoObject != null)
+        {
+            OnCancelInfoSelection();
+        }
+
         selectedInfoObject = newInfoObject;
     }
 
@@ -84,6 +104,28 @@ public class UIManager : MonoBehaviour
 
         // In the case where the selected object was the building currently being placed, also stop the building placement
         BuildingManager.Instance.StopBuildingPlacement();
+    }
+
+    public void OnSellClicked()
+    {
+        Building building = null;
+        if (selectedInfoObject != null)
+        {
+            building = selectedInfoObject as Building;
+        }
+        else if (hoveredInfoObject != null)
+        {
+            building = hoveredInfoObject as Building;
+        }
+
+        if (building == null)
+        {
+            return;
+        }
+
+        GameManager.Instance.currentMoney += building.data.cost / 2;
+        
+        BuildingManager.Instance.RemoveBuilding(building);
     }
 
     public void OnPlayClicked()

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Arcade
   cost: 1500
+  earns: 50
   color: {r: 0.20745385, g: 0.046902817, b: 0.5849056, a: 1}
   needsMet:
   - need: 1

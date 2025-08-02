@@ -7,7 +7,18 @@ public class BuildingButton : MonoBehaviour, ISelectable, IPointerEnterHandler, 
 {
     public Image image;
     public TextMeshProUGUI nameText;
+    private Button button;
     private BuildingData data;
+
+    private void Start()
+    {
+        button = GetComponent<Button>();
+    }
+
+    private void Update()
+    {
+        button.interactable = GameManager.Instance.currentMoney >= data.cost;
+    }
 
     public void Setup(BuildingData buildingData)
     {
@@ -20,8 +31,8 @@ public class BuildingButton : MonoBehaviour, ISelectable, IPointerEnterHandler, 
 
     public void OnClick()
     {
-        BuildingManager.Instance.StartBuildingPlacement(data);
         UIManager.Instance.SetSelectedInfoObject(this);
+        BuildingManager.Instance.StartBuildingPlacement(data);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -6,7 +6,7 @@ public class Shopper : MonoBehaviour, ISelectable
     public float minDistanceToWaypoint = 0.1f;
     public float moveSpeed = 1f;
 
-    private LinkedList<Transform> waypoints;
+    private LinkedList<Vector3> waypoints;
 
     private List<Building> visitedBuildings = new List<Building>();
 
@@ -42,14 +42,14 @@ public class Shopper : MonoBehaviour, ISelectable
             if (building != null && !visitedBuildings.Contains(building) && building.CanMeetNeed(needs))
             {
                 // Update the path so you enter and exit the building
-                waypoints.AddFirst(other);
-                waypoints.AddFirst(building.transform);
-                waypoints.AddFirst(other);
+                waypoints.AddFirst(other.position);
+                waypoints.AddFirst(building.transform.position);
+                waypoints.AddFirst(other.position);
 
                 // Store the building so you don't enter the building again
                 visitedBuildings.Add(building);
 
-                // Update your needs based on the building
+                // Update your needs based on the building (also pays for using the building)
                 building.MeetNeeds(needs);
             }
         }
@@ -79,10 +79,10 @@ public class Shopper : MonoBehaviour, ISelectable
         }
 
         // If you are very close to a waypoint, snap to it and move to the next one
-        if (Vector3.Distance(transform.position, waypoints.First.Value.position) <= minDistanceToWaypoint)
+        if (Vector3.Distance(transform.position, waypoints.First.Value) <= minDistanceToWaypoint)
         {
             // Snap to the waypoint
-            transform.position = waypoints.First.Value.position;
+            transform.position = waypoints.First.Value;
 
             // If there will be more waypoints, remove the first one so the next one will be moved to.
             // If this was the last waypoint, destroy yourself because your route is done.
@@ -91,6 +91,7 @@ public class Shopper : MonoBehaviour, ISelectable
                 waypoints.RemoveFirst();
                 if (waypoints.Count == 0)
                 {
+                    ShopperManager.Instance.ShopperReturned();
                     Destroy(gameObject);
                 }
             }
@@ -98,16 +99,16 @@ public class Shopper : MonoBehaviour, ISelectable
         // If you haven't reached a waypoint yet, move towards it
         else
         {
-            transform.Translate((waypoints.First.Value.position - transform.position).normalized * moveSpeed * Time.deltaTime);
+            transform.Translate((waypoints.First.Value - transform.position).normalized * moveSpeed * Time.deltaTime);
         }
     }
 
     public void Setup(Transform[] trackPath, Dictionary<Need, int> needs)
     {
-        waypoints = new LinkedList<Transform>();
+        waypoints = new LinkedList<Vector3>();
         foreach (Transform trackWaypoint in trackPath)
         {
-            waypoints.AddLast(trackWaypoint);
+            waypoints.AddLast(trackWaypoint.position);
         }
 
         this.needs = needs;

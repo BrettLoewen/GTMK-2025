@@ -44,6 +44,11 @@ public class BuildingManager : MonoBehaviour
 
     public void StartBuildingPlacement(BuildingData buildingData)
     {
+        if (GameManager.Instance.currentMoney < buildingData.cost)
+        {
+            return;
+        }
+
         EnableBuildingSlots(true);
         currentBuildingData = buildingData;
     }
@@ -57,6 +62,11 @@ public class BuildingManager : MonoBehaviour
     public void ClickedBuildingSlot(BuildingSlot slot)
     {
         if (currentBuildingData == null)
+        {
+            return;
+        }
+
+        if (GameManager.Instance.currentMoney < currentBuildingData.cost)
         {
             return;
         }
@@ -84,6 +94,8 @@ public class BuildingManager : MonoBehaviour
                 building.entryPoints[i].gameObject.SetActive(false);
             }
         }
+
+        GameManager.Instance.currentMoney -= currentBuildingData.cost;
 
         UIManager.Instance.SetSelectedInfoObject(null);
 
@@ -116,6 +128,19 @@ public class BuildingManager : MonoBehaviour
         else 
         { 
             return null; 
+        }
+    }
+
+    public void RemoveBuilding(Building building)
+    {
+        for(int i = 0; i < buildings.Length; i++)
+        {
+            if (buildings[i] == building)
+            {
+                buildings[i] = null;
+                Destroy(building.gameObject);
+                break;
+            }
         }
     }
 }

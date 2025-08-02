@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Jeweler
   cost: 2000
+  earns: 100
   color: {r: 0, g: 0.7894318, b: 0.9433962, a: 1}
   needsMet:
   - need: 3

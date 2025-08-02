@@ -6,7 +6,7 @@ public class Building : MonoBehaviour, ISelectable
     public Transform[] entryPoints;
 
     private SpriteRenderer spriteRenderer;
-    private BuildingData data;
+    public BuildingData data;
 
 
     private void Awake()
@@ -46,7 +46,7 @@ public class Building : MonoBehaviour, ISelectable
     {
         foreach (NeedLevel needLevel in data.needsMet)
         {
-            if (needs.ContainsKey(needLevel.need) && needLevel.level > 0)
+            if (needs.ContainsKey(needLevel.need) && needLevel.level > 0 && needs[needLevel.need] > 0)
             {
                 return true;
             }
@@ -71,5 +71,8 @@ public class Building : MonoBehaviour, ISelectable
                 }
             }
         }
+
+        GameManager.Instance.currentMoney += data.earns;
+        GameManager.Instance.earnedMoney += data.earns;
     }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Gym
   cost: 1000
+  earns: 40
   color: {r: 0.62352943, g: 0, b: 0.018314738, a: 1}
   needsMet:
   - need: 2

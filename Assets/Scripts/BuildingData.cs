@@ -5,6 +5,7 @@ public class BuildingData : ScriptableObject
 {
     public string buildingName;
     public int cost;
+    public int earns;
     public Color color = new Color(0,0,0,1);
     //public Sprite sprite;
 

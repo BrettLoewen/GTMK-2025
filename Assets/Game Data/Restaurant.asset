@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Restaurant
   cost: 400
+  earns: 20
   color: {r: 0.8804556, g: 0.9150943, b: 0.11654504, a: 1}
   needsMet:
   - need: 0

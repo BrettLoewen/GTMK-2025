@@ -6,12 +6,15 @@ public class GameManager : MonoBehaviour
 
     public int totalDays = 5;
     public int currentDay = 0;
+    private bool playingDay;
 
     public int[] scaleShoppers;
     public int[] scaleNeedDegrees;
     public int[] needUnlockDay; // index matches enum index
 
     public int currentMoney = 0;
+    public int earnedMoney = 0;
+    public int moneyGoal;
 
     void Awake()
     {
@@ -29,31 +32,36 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playingDay = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UIManager.Instance.moneyText.text = $"${currentMoney}";
-        UIManager.Instance.dayText.text = $"Day {currentDay} / {totalDays}";
+        
     }
 
     public void StartDay()
     {
+        if (playingDay)
+        {
+            return;
+        }
+
         currentDay++;
         ShopperManager.Instance.StartDay(scaleShoppers[currentDay - 1]);
+        playingDay = true;
     }
 
     public void EndDay()
     {
-        if (currentDay + 1 >= totalDays)
+        if (currentDay + 1 > totalDays)
         {
-            // game over
+            Debug.Log("GAME OVER");
         }
         else
         {
-            // enter prep stage
+            playingDay = false;
         }
     }
 }

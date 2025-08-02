@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     private ISelectable selectedInfoObject;
     private ISelectable hoveredInfoObject;
 
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI dayText;
+
     void Awake()
     {
         //If Instance does not exist yet, this instance should be the Instance
@@ -81,5 +84,15 @@ public class UIManager : MonoBehaviour
 
         // In the case where the selected object was the building currently being placed, also stop the building placement
         BuildingManager.Instance.StopBuildingPlacement();
+    }
+
+    public void OnPlayClicked()
+    {
+        GameManager.Instance.StartDay();
+    }
+
+    public void OnPauseClicked()
+    {
+
     }
 }

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Theatre
   cost: 750
-  earns: 30
+  earns: 50
   color: {r: 0.754717, g: 0.08187969, b: 0.08187969, a: 1}
+  sprite: {fileID: 5644207332877728121, guid: f4f754e7a219d4442807bf8ba96b2390, type: 3}
   needsMet:
   - need: 1
     level: 1

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Gym
   cost: 1000
-  earns: 40
+  earns: 60
   color: {r: 0.62352943, g: 0, b: 0.018314738, a: 1}
+  sprite: {fileID: 5644207332877728121, guid: f62ebd9fbc3fc69459b0ff1d49b7ca74, type: 3}
   needsMet:
   - need: 2
     level: 2

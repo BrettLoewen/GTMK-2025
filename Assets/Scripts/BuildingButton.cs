@@ -22,8 +22,8 @@ public class BuildingButton : MonoBehaviour, ISelectable, IPointerEnterHandler, 
 
     public void Setup(BuildingData buildingData)
     {
-        //image.sprite = buildingData.sprite;
-        image.color = buildingData.color;
+        image.sprite = buildingData.sprite;
+        //image.color = buildingData.color;
         nameText.text = buildingData.name;
 
         data = buildingData;

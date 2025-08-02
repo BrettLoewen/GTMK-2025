@@ -7,7 +7,7 @@ public class BuildingData : ScriptableObject
     public int cost;
     public int earns;
     public Color color = new Color(0,0,0,1);
-    //public Sprite sprite;
+    public Sprite sprite;
 
     public NeedLevel[] needsMet;
 

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingName: Arcade
   cost: 1500
-  earns: 50
+  earns: 75
   color: {r: 0.20745385, g: 0.046902817, b: 0.5849056, a: 1}
+  sprite: {fileID: 5644207332877728121, guid: 1a8f47d271198c64d8ecb58eb680066b, type: 3}
   needsMet:
   - need: 1
     level: 2

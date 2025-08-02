@@ -16,6 +16,7 @@ MonoBehaviour:
   cost: 2000
   earns: 100
   color: {r: 0, g: 0.7894318, b: 0.9433962, a: 1}
+  sprite: {fileID: 5644207332877728121, guid: ae8ae6e205703bf41b77727bbda5b6be, type: 3}
   needsMet:
   - need: 3
-    level: 1
+    level: 2

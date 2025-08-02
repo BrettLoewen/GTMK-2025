@@ -33,7 +33,8 @@ public class Building : MonoBehaviour, ISelectable
     {
         this.data = data;
 
-        spriteRenderer.color = data.color;
+        //spriteRenderer.color = data.color;
+        spriteRenderer.sprite = data.sprite;
         name = data.buildingName;
     }
 

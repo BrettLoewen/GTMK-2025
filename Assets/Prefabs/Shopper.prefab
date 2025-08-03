@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceToWaypoint: 0.01
-  moveSpeed: 2
+  moveSpeed: 1.5
   colors:
   - {r: 0.09211465, g: 0.8490566, b: 0.13322477, a: 1}
   - {r: 0.16967781, g: 0.8773585, b: 0.86274785, a: 1}

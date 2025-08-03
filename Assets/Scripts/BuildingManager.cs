@@ -49,7 +49,7 @@ public class BuildingManager : MonoBehaviour
             return;
         }
 
-        EnableBuildingSlots(true);
+        EnableBuildingSlots(true, buildingData.sprite);
         currentBuildingData = buildingData;
     }
 
@@ -102,7 +102,7 @@ public class BuildingManager : MonoBehaviour
         StopBuildingPlacement();
     }
 
-    private void EnableBuildingSlots(bool active)
+    private void EnableBuildingSlots(bool active, Sprite sprite = null)
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -110,6 +110,7 @@ public class BuildingManager : MonoBehaviour
             if (buildings[i] == null)
             {
                 slots[i].gameObject.SetActive(active);
+                slots[i].ShowBuilding(sprite);
             }
             else
             {

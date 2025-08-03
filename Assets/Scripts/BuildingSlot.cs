@@ -5,8 +5,12 @@ public class BuildingSlot : MonoBehaviour
     public GameObject[] trackAreas;
     public bool[] enabledSlots;
 
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         enabledSlots = new bool[trackAreas.Length];
         for (int i = 0; i < trackAreas.Length; i++)
         {
@@ -45,5 +49,10 @@ public class BuildingSlot : MonoBehaviour
                 trackAreas[i].SetActive(false);
             }
         }
+    }
+
+    public void ShowBuilding(Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
     }
 }

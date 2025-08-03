@@ -418,6 +418,7 @@ MonoBehaviour:
   - {fileID: 2920810733119188358}
   - {fileID: 7383270108538334062}
   enabledSlots: 
+  spriteRenderer: {fileID: 3952369527118401507}
 --- !u!1 &7383270108538334062
 GameObject:
   m_ObjectHideFlags: 0

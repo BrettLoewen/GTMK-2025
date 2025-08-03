@@ -95,7 +95,7 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        GameManager.Instance.currentMoney -= currentBuildingData.cost;
+        GameManager.Instance.GainMoney(-currentBuildingData.cost, false);
 
         UIManager.Instance.SetSelectedInfoObject(null);
 

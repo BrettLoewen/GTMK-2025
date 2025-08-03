@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public int satisfiedShoppers = 0;
     public int dissatisfiedShoppers = 0;
 
+    [SerializeField] private AudioSource coinDropSourcePrefab;
+
     void Awake()
     {
         //If Instance does not exist yet, this instance should be the Instance
@@ -66,5 +68,17 @@ public class GameManager : MonoBehaviour
         {
             playingDay = false;
         }
+    }
+
+    public void GainMoney(int amount, bool earned)
+    {
+        currentMoney += amount;
+        if (earned)
+        {
+            earnedMoney += amount;
+        }
+
+        AudioSource coinDropSource = Instantiate(coinDropSourcePrefab, transform);
+        Destroy(coinDropSource.gameObject, 3f);
     }
 }

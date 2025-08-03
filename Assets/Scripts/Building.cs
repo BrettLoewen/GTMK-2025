@@ -73,7 +73,6 @@ public class Building : MonoBehaviour, ISelectable
             }
         }
 
-        GameManager.Instance.currentMoney += data.earns;
-        GameManager.Instance.earnedMoney += data.earns;
+        GameManager.Instance.GainMoney(data.earns, true);
     }
 }

@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameEndScreen;
     public TextMeshProUGUI gameEndHeader;
     public TextMeshProUGUI gameEndBody;
+    public GameObject creditsScreen;
 
     private GameManager gameManager => GameManager.Instance;
 
@@ -62,6 +63,7 @@ public class UIManager : MonoBehaviour
 
         popup.SetActive(false);
         gameEndScreen.SetActive(false);
+        creditsScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -137,7 +139,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        gameManager.currentMoney += building.data.cost / 2;
+        gameManager.GainMoney(building.data.cost / 2, false);
         
         BuildingManager.Instance.RemoveBuilding(building);
     }
@@ -163,5 +165,17 @@ public class UIManager : MonoBehaviour
         gameEndScreen.SetActive(true);
         gameEndHeader.text = gameManager.earnedMoney >= gameManager.moneyGoal ? "YOU WIN" : "YOU LOST";
         gameEndBody.text = $"Cash Earned: ${gameManager.earnedMoney}\nSatisfied Shoppers: {gameManager.satisfiedShoppers}\nDissatisfied Shoppers: {gameManager.dissatisfiedShoppers}";
+    }
+
+    public void OpenCredits()
+    {
+        popup.SetActive(true);
+        creditsScreen.SetActive(true);
+    }
+
+    public void CloseCredits()
+    {
+        popup.SetActive(false);
+        creditsScreen.SetActive(false);
     }
 }
